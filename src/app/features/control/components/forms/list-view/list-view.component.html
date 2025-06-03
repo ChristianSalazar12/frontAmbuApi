@@ -1,0 +1,32 @@
+<h2>Formulario de Ambulancias</h2>
+<form [formGroup]="formulario" (ngSubmit)="agregar()">
+  <input formControlName="placa" placeholder="Número de Placa" />
+  <input formControlName="conductor" placeholder="Conductor" />
+  <input formControlName="paramedico" placeholder="Paramédico" />
+  <input formControlName="auxiliar" placeholder="Auxiliar" />
+  <select formControlName="estado">
+    <option value="Activo">Activo</option>
+    <option value="Libre">Libre</option>
+  </select>
+  <button type="submit">Agregar</button>
+</form>
+
+<hr />
+
+<h3>Listado de Ambulancias</h3>
+<table border="1">
+  <tr>
+    <th>Placa</th>
+    <th>Conductor</th>
+    <th>Paramédico</th>
+    <th>Auxiliar</th>
+    <th>Estado</th>
+  </tr>
+  <tr *ngFor="let amb of ambulancias">
+    <td>{{ amb.placa }}</td>
+    <td>{{ amb.conductor }}</td>
+    <td>{{ amb.paramedico }}</td>
+    <td>{{ amb.auxiliar }}</td>
+    <td>{{ amb.estado }}</td>
+  </tr>
+</table>

@@ -4,7 +4,10 @@
     <app-header></app-header>
   </header>
   <div class="bg-primary py-1">
-    <app-nav-options></app-nav-options>
+    <app-nav-options
+      [selectedView]="selectedView"
+      (onViewChange)="changeSelectedView($event)"
+    ></app-nav-options>
   </div>
 
   <!-- Main area: sidebar + content -->
@@ -16,7 +19,7 @@
 
     <!-- Content -->
     <main class="flex-1">
-      <app-home></app-home>
+      <app-home [selectedView]="selectedView"></app-home>
     </main>
   </div>
 </div>

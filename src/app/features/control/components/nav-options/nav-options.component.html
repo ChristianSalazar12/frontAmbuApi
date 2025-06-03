@@ -1,7 +1,7 @@
-<nav class="bg-gray-100 h-full w-full flex">
-  <!-- Plantilla de botón reutilizable -->
+<nav class="bg-primary h-full w-full flex">
   <button
-    class="w-full flex flex-col items-center p-1 bg-white border border-gray-300 shadow hover:bg-gray-200 transition"
+    class="w-full flex flex-col items-center p-1 bg-secondary border border-gray-300 shadow hover:bg-gray-200 transition"
+    (click)="setView('home')"
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -9,7 +9,6 @@
       viewBox="0 0 20 20"
       fill="currentColor"
     >
-      <!-- Icono de Configuración -->
       <path
         d="M11.3 1.046a1 1 0 00-2.6 0l-.3 1.158a8.058 8.058 0 00-1.772.992l-1.045-.604a1 1 0 00-1.3.363l-.866 1.5a1 1 0 00.365 1.366l1.045.604a8.058 8.058 0 000 1.984l-1.045.604a1 1 0 00-.365 1.366l.866 1.5a1 1 0 001.3.363l1.045-.604a8.058 8.058 0 001.772.992l.3 1.158a1 1 0 002.6 0l.3-1.158a8.058 8.058 0 001.772-.992l1.045.604a1 1 0 001.3-.363l.866-1.5a1 1 0 00-.365-1.366l-1.045-.604a8.058 8.058 0 000-1.984l1.045-.604a1 1 0 00.365-1.366l-.866-1.5a1 1 0 00-1.3-.363l-1.045.604a8.058 8.058 0 00-1.772-.992l-.3-1.158zM10 13a3 3 0 110-6 3 3 0 010 6z"
       />
@@ -17,9 +16,13 @@
     <span class="text-sm font-medium text-gray-700">Config</span>
   </button>
 
-  <!-- Botón Home -->
   <button
-    class="w-full flex flex-col items-center p-1 bg-white border border-gray-300 shadow hover:bg-gray-200 transition"
+    class="w-full flex flex-col items-center p-1 bg-secondary border border-gray-300 shadow hover:bg-gray-200 transition"
+    [ngClass]="{
+      'bg-primary text-white': selectedView === 'home',
+      'bg-secondary text-gray-700': selectedView !== 'home'
+    }"
+    (click)="setView('home')"
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -34,9 +37,13 @@
     <span class="text-sm font-medium text-gray-700">Home</span>
   </button>
 
-  <!-- Botón Ambulancia -->
   <button
-    class="w-full flex flex-col items-center p-1 bg-white border border-gray-300 shadow hover:bg-gray-200 transition"
+    class="w-full flex flex-col items-center p-1 bg-secondary border border-gray-300 shadow hover:bg-gray-200 transition"
+    [ngClass]="{
+      'bg-primary text-white': selectedView === 'ambulancia',
+      'bg-secondary text-gray-700': selectedView !== 'ambulancia'
+    }"
+    (click)="setView('ambulancia')"
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -51,9 +58,13 @@
     <span class="text-sm font-medium text-gray-700">Ambulancia</span>
   </button>
 
-  <!-- Botón Servicios -->
   <button
-    class="w-full flex flex-col items-center p-1 bg-white border border-gray-300 shadow hover:bg-gray-200 transition"
+    class="w-full flex flex-col items-center p-1 bg-secondary border border-gray-300 shadow hover:bg-gray-200 transition"
+    [ngClass]="{
+      'bg-primary text-white': selectedView === 'servicios',
+      'bg-secondary text-gray-700': selectedView !== 'servicios'
+    }"
+    (click)="setView('servicios')"
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -68,9 +79,13 @@
     <span class="text-sm font-medium text-gray-700">Servicios</span>
   </button>
 
-  <!-- Botón Turnos -->
   <button
-    class="w-full flex flex-col items-center p-1 bg-white border border-gray-300 shadow hover:bg-gray-200 transition"
+    class="w-full flex flex-col items-center p-1 bg-secondary border border-gray-300 shadow hover:bg-gray-200 transition"
+    [ngClass]="{
+      'bg-primary text-white': selectedView === 'turnos',
+      'bg-secondary text-gray-700': selectedView !== 'turnos'
+    }"
+    (click)="setView('turnos')"
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -85,9 +100,13 @@
     <span class="text-sm font-medium text-gray-700">Turnos</span>
   </button>
 
-  <!-- Botón Personal -->
   <button
-    class="w-full flex flex-col items-center p-1 bg-white border border-gray-300 shadow hover:bg-gray-200 transition"
+    class="w-full flex flex-col items-center p-1 bg-secondary border border-gray-300 shadow hover:bg-gray-200 transition"
+    [ngClass]="{
+      'bg-primary text-white': selectedView === 'personal',
+      'bg-secondary text-gray-700': selectedView !== 'personal'
+    }"
+    (click)="setView('personal')"
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -104,7 +123,7 @@
     <span class="text-sm font-medium text-gray-700">Personal</span>
   </button>
   <button
-    class="w-full flex flex-col items-center p-1 bg-white border border-gray-300 shadow hover:bg-gray-200 transition"
+    class="w-full flex flex-col items-center p-1 bg-secondary border border-gray-300 shadow hover:bg-gray-200 transition"
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"

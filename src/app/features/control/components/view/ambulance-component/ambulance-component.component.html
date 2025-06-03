@@ -1,0 +1,17 @@
+<div class="p-4 bg-gray-200">
+  <!-- Botones de selección -->
+  <div class="flex gap-2 mb-4">
+    <button class="btn" (click)="selectOption('list')">List</button>
+    <button class="btn" (click)="selectOption('add')">Add</button>
+    <button class="btn" (click)="selectOption('edit')">Edit</button>
+    <button class="btn" (click)="selectOption('delete')">Delete</button>
+  </div>
+
+  <!-- Área de visualización -->
+  <div class="border p-4 bg-white">
+    <app-list-view *ngIf="selectedOption === 'list'"></app-list-view>
+    <app-add-view *ngIf="selectedOption === 'add'"></app-add-view>
+    <app-edit-view *ngIf="selectedOption === 'edit'"></app-edit-view>
+    <app-delete-view *ngIf="selectedOption === 'delete'"></app-delete-view>
+  </div>
+</div>

@@ -1,4 +1,19 @@
-<div class="m-1">
-  <h1 class="text-xl border-b border-x-gray-900 py-2 px-6">WELCOME ADMIN</h1>
-  <div></div>
+<!-- layout.component.html -->
+<div class="m-1 h-full">
+  <div class="bg-gray-100 p-4">
+    <!-- Render dinámico según opción seleccionada -->
+    <app-home-component *ngIf="selectedView === 'home'"></app-home-component>
+    <app-ambulance-component
+      *ngIf="selectedView === 'ambulancia'"
+    ></app-ambulance-component>
+    <app-personal-component
+      *ngIf="selectedView === 'personal'"
+    ></app-personal-component>
+    <app-services-component
+      *ngIf="selectedView === 'servicios'"
+    ></app-services-component>
+    <app-turnos-component
+      *ngIf="selectedView === 'turnos'"
+    ></app-turnos-component>
+  </div>
 </div>

@@ -15,4 +15,10 @@ import { NavOptionsComponent } from '../components/nav-options/nav-options.compo
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.css',
 })
-export class LayoutComponent {}
+export class LayoutComponent {
+  selectedView: string = 'home'; // Valor por defecto
+
+  changeSelectedView(view: string) {
+    this.selectedView = view;
+  }
+}
