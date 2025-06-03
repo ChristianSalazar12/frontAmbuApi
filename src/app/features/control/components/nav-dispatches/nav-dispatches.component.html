@@ -1,1 +1,16 @@
-<p>nav-dispatches works!</p>
+<!-- nav-dispatches.component.html -->
+<div>
+  <p>nav-dispatches works!</p>
+  <div class="overflow-y-auto">
+    <ul class="list-none py-1 bg-slate-300">
+      <li
+        *ngFor="let service of services"
+        class="p-4 bg-white border border-gray-300 shadow-md"
+      >
+        <h3 class="font-bold text-lg mb-2">{{ service.title }}</h3>
+        <p class="mb-1 text-xs">{{ service.description1 }}</p>
+        <p class="text-xs">{{ service.description2 }}</p>
+      </li>
+    </ul>
+  </div>
+</div>
