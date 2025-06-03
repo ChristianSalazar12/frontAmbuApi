@@ -1,1 +1,29 @@
-<p>personal-component works!</p>
+<div class="p-4 bg-tertiary">
+  <div class="flex gap-2 mb-4 justify-center">
+    <button
+      class="btn bg-primary rounded-lg p-1"
+      (click)="selectOption('paramedic')"
+    >
+      paramedic
+    </button>
+    <button
+      class="btn bg-primary rounded-lg p-1"
+      (click)="selectOption('auxiliar')"
+    >
+      Auxiliar
+    </button>
+    <button
+      class="btn bg-primary rounded-lg p-1"
+      (click)="selectOption('driver')"
+    >
+      Driver
+    </button>
+  </div>
+
+  <!-- Área de visualización -->
+  <div class="border p-4 bg-tertiary min-h-full">
+    <app-paramedic *ngIf="selectedOption === 'paramedic'"></app-paramedic>
+    <app-auxiliar *ngIf="selectedOption === 'auxiliar'"></app-auxiliar>
+    <app-driver *ngIf="selectedOption === 'driver'"></app-driver>
+  </div>
+</div>

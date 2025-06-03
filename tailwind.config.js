@@ -9,6 +9,8 @@ export default {
         accent: "#EF4444",
         background: "#F3F4F6",
         text: "#111827",
+        tertiary: "#FFFFFF",
+        buttonAction: "#2563EB",
       },
       fontFamily: {
         sans: ['"Inter"', "sans-serif"],

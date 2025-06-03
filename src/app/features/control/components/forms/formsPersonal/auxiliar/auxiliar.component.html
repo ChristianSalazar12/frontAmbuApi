@@ -1,0 +1,83 @@
+<!-- Menú de acciones -->
+<div class="mb-4 flex justify-between">
+  <div>
+    <button
+      type="button"
+      class="bg-blue-500 text-white px-3 mx-1 py-1 rounded"
+      (click)="modo = 'agregar'"
+    >
+      Agregar
+    </button>
+    <button
+      type="button"
+      class="bg-yellow-500 text-white px-3 mx-1 py-1 rounded"
+      (click)="modo = 'editar'"
+    >
+      Editar
+    </button>
+    <button
+      type="button"
+      class="bg-red-500 text-white px-3 mx-1 py-1 rounded"
+      (click)="modo = 'eliminar'"
+    >
+      Eliminar
+    </button>
+  </div>
+</div>
+
+<!-- Formulario -->
+<form class="flex" [formGroup]="formulario" (ngSubmit)="ejecutarAccion()">
+  <div>
+    <input formControlName="nombre" placeholder="Nombre" />
+    <input formControlName="apellido" placeholder="Apellido" />
+    <input class="w-32" formControlName="noAuxiliar" placeholder="N° Médico" />
+    <input class="w-28" formControlName="contacto" placeholder="Contacto" />
+    <input
+      formControlName="noEspecializacion"
+      placeholder="N° Especialización"
+    />
+  </div>
+
+  <div>
+    <button
+      type="submit"
+      class="mt-2 bg-green-600 text-white px-3 py-1 rounded"
+    >
+      {{
+        modo === "agregar"
+          ? "Agregar"
+          : modo === "editar"
+          ? "Editar"
+          : "Eliminar"
+      }}
+    </button>
+  </div>
+</form>
+
+<h3 class="mt-6">Listado de Paramédicos</h3>
+<div class="overflow-auto max-h-56 border bg-secondary rounded-md">
+  <table class="w-full text-left">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>N° Auxiliar</th>
+        <th>Contacto</th>
+        <th>N° Especialización</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        class="cursor-pointer hover:bg-blue-300"
+        *ngFor="let p of paramedics"
+        (click)="seleccionarParamedico(p)"
+      >
+        <td>{{ p.nombre }}</td>
+        <td>{{ p.apellido }}</td>
+        <td>{{ p.noAuxiliar }}</td>
+        <td>{{ p.contacto }}</td>
+        <td>{{ p.noEspecializacion }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

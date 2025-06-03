@@ -1,5 +1,30 @@
-<h2>Formulario de Ambulancias</h2>
-<form [formGroup]="formulario" (ngSubmit)="agregar()">
+<h2 class="mb-2">Formulario de Ambulancias</h2>
+
+<div class="mb-4 flex gap-2">
+  <button
+    type="button"
+    class="bg-blue-500 text-white px-3 py-1 rounded"
+    (click)="modo = 'agregar'"
+  >
+    Agregar
+  </button>
+  <button
+    type="button"
+    class="bg-yellow-500 text-white px-3 py-1 rounded"
+    (click)="modo = 'editar'"
+  >
+    Editar
+  </button>
+  <button
+    type="button"
+    class="bg-red-500 text-white px-3 py-1 rounded"
+    (click)="modo = 'eliminar'"
+  >
+    Eliminar
+  </button>
+</div>
+
+<form [formGroup]="formulario" (ngSubmit)="ejecutarAccion()">
   <input formControlName="placa" placeholder="Número de Placa" />
   <input formControlName="conductor" placeholder="Conductor" />
   <input formControlName="paramedico" placeholder="Paramédico" />
@@ -8,25 +33,39 @@
     <option value="Activo">Activo</option>
     <option value="Libre">Libre</option>
   </select>
-  <button type="submit">Agregar</button>
+  <button
+    type="submit"
+    class="mt-2 bg-buttonAction text-white px-3 py-1 rounded mx-4"
+  >
+    {{
+      modo === "agregar" ? "Agregar" : modo === "editar" ? "Editar" : "Eliminar"
+    }}
+  </button>
 </form>
 
 <hr />
 
-<h3>Listado de Ambulancias</h3>
-<table border="1">
-  <tr>
-    <th>Placa</th>
-    <th>Conductor</th>
-    <th>Paramédico</th>
-    <th>Auxiliar</th>
-    <th>Estado</th>
-  </tr>
-  <tr *ngFor="let amb of ambulancias">
-    <td>{{ amb.placa }}</td>
-    <td>{{ amb.conductor }}</td>
-    <td>{{ amb.paramedico }}</td>
-    <td>{{ amb.auxiliar }}</td>
-    <td>{{ amb.estado }}</td>
-  </tr>
-</table>
+<h3 class="my-3">Listado de Ambulancias</h3>
+
+<div class="overflow-auto max-h-96 border bg-secondary rounded-md">
+  <table class="w-full text-left">
+    <thead class="text-center">
+      <tr>
+        <th>Placa</th>
+        <th>Conductor</th>
+        <th>Paramédico</th>
+        <th>Auxiliar</th>
+        <th>Estado</th>
+      </tr>
+    </thead>
+    <tbody class="text-center">
+      <tr *ngFor="let amb of ambulancias" (click)="seleccionarAmbulancia(amb)">
+        <td>{{ amb.placa }}</td>
+        <td>{{ amb.conductor }}</td>
+        <td>{{ amb.paramedico }}</td>
+        <td>{{ amb.auxiliar }}</td>
+        <td>{{ amb.estado }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
