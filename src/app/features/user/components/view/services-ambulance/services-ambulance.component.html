@@ -1,1 +1,222 @@
-<p>services-ambulance works!</p>
+<form
+  [formGroup]="attentionForm"
+  (ngSubmit)="onSubmit()"
+  class="max-w-3xl mx-auto p-6 bg-white rounded-lg shadow-md space-y-6"
+>
+  <h2 class="text-2xl font-bold text-gray-800 mb-4 text-center">
+    Add New Attention
+  </h2>
+
+  <!-- Sección Campos Automáticos (compacta y en una fila) -->
+  <div class="flex grid-cols-4 gap-4 mb-6">
+    <div class="">
+      <label class="block mb-1 w-4 font-semibold text-gray-700 text-sm"
+        >Date</label
+      >
+      <input
+        type="datetime-local"
+        formControlName="date"
+        [disabled]="submitting"
+        class="bg-gray-100 border border-gray-300 rounded-md px-2 py-1 cursor-not-allowed text-sm"
+      />
+    </div>
+    <div>
+      <label class="block mb-1 font-semibold text-gray-700 text-sm"
+        >Code Start</label
+      >
+      <input
+        type="text"
+        formControlName="code_start"
+        [disabled]="submitting"
+        class="w-full bg-gray-100 border border-gray-300 rounded-md px-2 py-1 cursor-not-allowed text-sm"
+      />
+    </div>
+    <div>
+      <label class="block mb-1 font-semibold text-gray-700 text-sm"
+        >Code End</label
+      >
+      <input
+        type="text"
+        formControlName="code_end"
+        [disabled]="submitting"
+        class="w-full bg-gray-100 border border-gray-300 rounded-md px-2 py-1 cursor-not-allowed text-sm"
+      />
+    </div>
+    <div>
+      <label class="block mb-1 font-semibold text-gray-700 text-sm"
+        >Nro Informe</label
+      >
+      <input
+        type="text"
+        formControlName="nro_informe"
+        [disabled]="submitting"
+        class="w-full bg-gray-100 border border-gray-300 rounded-md px-2 py-1 cursor-not-allowed text-sm"
+      />
+    </div>
+  </div>
+
+  <!-- Sección Campos Editables (más amplia) -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <!-- Status -->
+    <div>
+      <label class="block mb-2 font-semibold text-gray-700">Status</label>
+      <select
+        formControlName="status"
+        class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        required
+      >
+        <option value="PENDIENTE">PENDIENTE</option>
+        <option value="COMPLETADO">COMPLETADO</option>
+        <option value="CANCELADO">CANCELADO</option>
+      </select>
+    </div>
+
+    <!-- Time Arrived (Start Button) -->
+    <div>
+      <label class="block mb-2 font-semibold text-gray-700">Time Arrived</label>
+      <div class="flex items-center gap-2">
+        <input
+          type="datetime-local"
+          formControlName="time_arrived"
+          [readonly]="true"
+          class="w-full border border-gray-300 rounded-md px-3 py-2 bg-gray-100 text-gray-700 cursor-not-allowed"
+        />
+        <button
+          type="button"
+          (click)="setTimeNow('arrived')"
+          [disabled]="!!attentionForm.get('time_arrived')?.value"
+          class="bg-blue-500 text-white px-3 py-2 rounded hover:bg-red-700 disabled:opacity-50"
+        >
+          Start
+        </button>
+      </div>
+    </div>
+    <!-- Time Finish (Stop Button) -->
+    <div>
+      <label class="block mb-2 font-semibold text-gray-700">Time Finish</label>
+      <div class="flex items-center gap-2">
+        <input
+          type="datetime-local"
+          formControlName="time_finish"
+          [readonly]="true"
+          class="w-full border border-gray-300 rounded-md px-3 py-2 bg-gray-100 text-gray-700 cursor-not-allowed"
+        />
+        <button
+          type="button"
+          (click)="setTimeNow('finish')"
+          [disabled]="
+            !attentionForm.get('time_arrived')?.value ||
+            !!attentionForm.get('time_finish')?.value
+          "
+          class="bg-red-600 text-white px-3 py-2 rounded hover:bg-red-700 disabled:opacity-50"
+        >
+          Stop
+        </button>
+      </div>
+    </div>
+    <!-- ID Descripción -->
+    <div>
+      <label class="block mb-2 font-semibold text-gray-700"
+        >ID Descripción</label
+      >
+      <input
+        type="number"
+        formControlName="id_descripcion"
+        min="1"
+        class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        required
+      />
+      <p
+        *ngIf="
+          attentionForm.get('id_descripcion')?.invalid &&
+          attentionForm.get('id_descripcion')?.touched
+        "
+        class="text-red-600 text-sm mt-1"
+      >
+        ID Descripción is required and must be positive.
+      </p>
+    </div>
+
+    <div class="flex grid-cols-4 gap-4 mb-6">
+      <!-- ID Turno -->
+      <div>
+        <label class="block mb-2 font-semibold text-gray-700">ID Turno</label>
+        <input
+          type="number"
+          formControlName="id_turno"
+          min="1"
+          class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          required
+        />
+        <p
+          *ngIf="
+            attentionForm.get('id_turno')?.invalid &&
+            attentionForm.get('id_turno')?.touched
+          "
+          class="text-red-600 text-sm mt-1"
+        >
+          ID Turno is required and must be positive.
+        </p>
+      </div>
+
+      <!-- ID Paciente -->
+      <div>
+        <label class="block mb-2 font-semibold text-gray-700"
+          >ID Paciente</label
+        >
+        <input
+          type="number"
+          formControlName="id_paciente"
+          min="1"
+          class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          required
+        />
+        <p
+          *ngIf="
+            attentionForm.get('id_paciente')?.invalid &&
+            attentionForm.get('id_paciente')?.touched
+          "
+          class="text-red-600 text-sm mt-1"
+        >
+          ID Paciente is required and must be positive.
+        </p>
+      </div>
+      <!-- Place Accident (span 2 cols) -->
+      <div class="md:col-span-2">
+        <label class="block mb-2 font-semibold text-gray-700"
+          >Place Accident</label
+        >
+        <input
+          type="text"
+          formControlName="place_accident"
+          placeholder="Avenida Central"
+          class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          required
+        />
+        <p
+          *ngIf="
+            attentionForm.get('place_accident')?.invalid &&
+            attentionForm.get('place_accident')?.touched
+          "
+          class="text-red-600 text-sm mt-1"
+        >
+          Place accident is required.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="errorMsg" class="text-red-600 font-semibold text-center">
+    {{ errorMsg }}
+  </div>
+
+  <div class="text-center">
+    <button
+      type="submit"
+      [disabled]="submitting"
+      class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 disabled:opacity-50 font-semibold"
+    >
+      {{ submitting ? "Submitting..." : "Add Attention" }}
+    </button>
+  </div>
+</form>
