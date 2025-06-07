@@ -1,0 +1,23 @@
+<!-- Contenedor principal flex vertical -->
+<div class="flex flex-col h-screen">
+  <!-- Header (ancho completo) -->
+  <div class="w-full h-16 bg-blue-600 text-white flex items-center px-4">
+    <app-header-user></app-header-user>
+    <!-- Componente header -->
+  </div>
+
+  <!-- Contenedor con sidebar y contenido (flex horizontal) -->
+  <div class="flex flex-1">
+    <!-- Sidebar (ancho fijo) -->
+    <div class="w-64 bg-gray-800 text-white p-4">
+      <app-sidebar></app-sidebar>
+      <!-- Componente sidebar -->
+    </div>
+
+    <!-- Contenido principal (flex-grow para ocupar espacio) -->
+    <div class="flex-1 bg-gray-100 p-6 overflow-auto">
+      <app-services-ambulance></app-services-ambulance>
+      <!-- Renderiza contenido dinámico -->
+    </div>
+  </div>
+</div>
