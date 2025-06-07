@@ -1,13 +1,26 @@
 <div class="p-6 bg-tertiary rounded shadow-md">
   <!-- Encabezado del turno -->
-  <div class="flex justify-between items-center mb-6">
-    <div>
-      <h2 class="text-xl font-bold">Turno del Día</h2>
-      <p class="text-sm text-gray-700">{{ fechaActual }} - {{ horaActual }}</p>
-    </div>
-    <div class="text-right">
-      <p class="text-sm text-gray-600 font-semibold">Rango del Turno:</p>
-      <p class="text-md font-medium">{{ turnoInicio }} - {{ turnoFin }}</p>
+  <div class="flex flex-col md:flex-row justify-between items-center mb-8 bg-gradient-to-r from-blue-50 via-white to-blue-100 p-5 rounded-lg shadow-sm border border-blue-100">
+    <div class="flex items-center space-x-4 mb-4 md:mb-0">
+      <span class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-blue-600 text-white shadow-lg">
+        <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+          <rect x="9" y="4" width="6" height="16" rx="2" fill="white" stroke="currentColor"/>
+          <rect x="4" y="9" width="16" height="6" rx="2" fill="white" stroke="currentColor"/>
+        </svg>
+      </span>
+      <div>
+        <h2 class="text-2xl font-extrabold text-blue-800 tracking-tight flex items-center">
+          Turnos Activos
+          <span class="ml-2 px-2 py-0.5 rounded bg-blue-100 text-xs text-blue-700 font-semibold animate-pulse">En tiempo real</span>
+        </h2>
+        <p class="text-sm text-gray-700 mt-1 flex items-center">
+          <svg class="w-4 h-4 mr-1 text-blue-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3"/>
+            <circle cx="12" cy="12" r="10"/>
+          </svg>
+          {{ fechaActual }} - <span class="ml-1 font-semibold text-blue-700">{{ horaActual }}</span>
+        </p>
+      </div>
     </div>
   </div>
 
@@ -16,24 +29,94 @@
     *ngFor="let turno of turnos"
     class="mb-4 border border-gray-300 rounded p-4 bg-white"
   >
-    <h3 class="text-lg font-semibold mb-2">
-      Ambulancia: {{ turno.ambulancia?.placa }} {{ turno.ambulancia?.tipo }}
-    </h3>
-    <ul class="ml-4 list-disc">
-      <li>
-        <strong>Paramédico:</strong>
-        {{ turno.paramedico?.name }} ({{ turno.paramedico?.role }})
-      </li>
-      <li>
-        <strong>Auxiliar:</strong>
-        {{ turno.auxiliar?.name }} {{ turno.auxiliar?.last_name }} -
-        {{ turno.auxiliar?.no_ci_auxiliar }}
-      </li>
-      <li>
-        <strong>Conductor:</strong>
-        {{ turno.conductor?.name }} {{ turno.conductor?.last_name }} -
-        {{ turno.conductor?.no_licencia }}
-      </li>
-    </ul>
+    <div class="flex items-center justify-between mb-3">
+      <div class="flex items-center space-x-4">
+        <div class="relative">
+          <span class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-tr from-blue-400 to-blue-600 text-white shadow-lg border-4 border-white">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+              <rect x="9" y="4" width="6" height="16" rx="2" fill="white" stroke="currentColor"/>
+              <rect x="4" y="9" width="16" height="6" rx="2" fill="white" stroke="currentColor"/>
+            </svg>
+          </span>
+          <span
+            *ngIf="turno.ambulancia?.disponible"
+            class="absolute -bottom-1 -right-1 w-4 h-4 bg-green-400 border-2 border-white rounded-full animate-pulse"
+            title="Ambulancia disponible"
+          ></span>
+        </div>
+        <div>
+          <h3 class="text-lg font-bold text-blue-800 flex items-center">
+            Ambulancia: <span class="ml-1 text-blue-600">{{ turno.ambulancia?.placa }}</span>
+            <span class="ml-3 px-2 py-0.5 rounded bg-blue-100 text-xs text-blue-700 font-semibold">{{ turno.ambulancia?.tipo }}</span>
+          </h3>
+          <span class="text-xs text-gray-400">Turno #{{ turno.id }}</span>
+        </div>
+      </div>
+      <div class="flex flex-col items-end">
+        <span class="inline-flex items-center bg-green-100 text-green-800 text-xs font-semibold px-3 py-1 rounded mb-1 shadow-sm">
+          <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+          </svg>
+          Inicio: {{ turno.time_start | date: 'dd/MM/yyyy, h:mm a' }}
+        </span>
+        <span class="inline-flex items-center bg-red-100 text-red-800 text-xs font-semibold px-3 py-1 rounded shadow-sm">
+          <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7"/>
+          </svg>
+          Fin: {{ turno.time_end | date: 'dd/MM/yyyy, h:mm a' }}
+        </span>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2">
+      <div class="flex items-center space-x-2 bg-blue-50 rounded p-2">
+        <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-blue-200 text-blue-700">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 12h3l2 5 4-14 3 9h4"/>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+        </span>
+        <div>
+          <div class="text-xs text-gray-500 font-semibold">Paramédico</div>
+          <div class="text-sm font-medium text-gray-800">
+            {{ turno.paramedico?.name }} {{ turno.paramedico?.last_name }}
+          </div>
+        </div>
+      </div>
+      <div class="flex items-center space-x-2 bg-green-50 rounded p-2">
+        <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-green-200 text-green-700">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+          </svg>
+        </span>
+        <div>
+          <div class="text-xs text-gray-500 font-semibold">Auxiliar</div>
+          <div class="text-sm font-medium text-gray-800">
+            {{ turno.auxiliar?.name }} {{ turno.auxiliar?.last_name }}
+            <span class="text-gray-400">- {{ turno.auxiliar?.no_ci_auxiliar }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="flex items-center space-x-2 bg-yellow-50 rounded p-2">
+        <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-yellow-200 text-yellow-700">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01"/>
+            <circle cx="12" cy="12" r="10"/>
+          </svg>
+        </span>
+        <div>
+          <div class="text-xs text-gray-500 font-semibold">Conductor</div>
+          <div class="text-sm font-medium text-gray-800">
+            {{ turno.conductor?.name }} {{ turno.conductor?.last_name }}
+            <span class="text-gray-400">- {{ turno.conductor?.no_licencia }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-4 flex justify-end">
+      <button class="px-4 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded shadow text-sm font-semibold transition">
+        Ver Detalles
+      </button>
+    </div>
   </div>
 </div>
