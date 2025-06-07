@@ -16,11 +16,24 @@
     *ngFor="let turno of turnos"
     class="mb-4 border border-gray-300 rounded p-4 bg-white"
   >
-    <h3 class="text-lg font-semibold mb-2">{{ turno.ambulancia }}</h3>
+    <h3 class="text-lg font-semibold mb-2">
+      Ambulancia: {{ turno.ambulancia?.placa }} {{ turno.ambulancia?.tipo }}
+    </h3>
     <ul class="ml-4 list-disc">
-      <li><strong>Paramédico:</strong> {{ turno.paramedico }}</li>
-      <li><strong>Auxiliar:</strong> {{ turno.auxiliar }}</li>
-      <li><strong>Conductor:</strong> {{ turno.conductor }}</li>
+      <li>
+        <strong>Paramédico:</strong>
+        {{ turno.paramedico?.name }} ({{ turno.paramedico?.role }})
+      </li>
+      <li>
+        <strong>Auxiliar:</strong>
+        {{ turno.auxiliar?.name }} {{ turno.auxiliar?.last_name }} -
+        {{ turno.auxiliar?.no_ci_auxiliar }}
+      </li>
+      <li>
+        <strong>Conductor:</strong>
+        {{ turno.conductor?.name }} {{ turno.conductor?.last_name }} -
+        {{ turno.conductor?.no_licencia }}
+      </li>
     </ul>
   </div>
 </div>

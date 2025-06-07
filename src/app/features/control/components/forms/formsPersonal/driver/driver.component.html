@@ -25,59 +25,68 @@
   </div>
 </div>
 
-<!-- Formulario actualizado -->
-<form class="flex" [formGroup]="formulario" (ngSubmit)="ejecutarAccion()">
-  <div>
-    <input formControlName="nombre" placeholder="Nombre" />
-    <input formControlName="apellido" placeholder="Apellido" />
-    <input
-      class="w-32"
-      formControlName="noLicencia"
-      placeholder="N° Licencia"
-    />
-    <input class="w-28" formControlName="telefono" placeholder="Teléfono" />
-    <input formControlName="noCurso" placeholder="N° Curso" />
-  </div>
+<!-- Formulario -->
+<form
+  class="flex flex-wrap gap-2"
+  [formGroup]="formulario"
+  (ngSubmit)="ejecutarAccion()"
+>
+  <input
+    formControlName="name"
+    placeholder="Nombre"
+    class="border p-1 rounded"
+  />
+  <input
+    formControlName="last_name"
+    placeholder="Apellido"
+    class="border p-1 rounded"
+  />
+  <input
+    formControlName="document"
+    placeholder="Documento"
+    class="border p-1 rounded"
+  />
+  <input
+    formControlName="no_licencia"
+    placeholder="N° Licencia"
+    class="border p-1 rounded"
+  />
+  <input
+    formControlName="no_fast_driver"
+    placeholder="N° Fast Driver"
+    class="border p-1 rounded"
+  />
 
-  <div>
-    <button
-      type="submit"
-      class="mt-2 bg-green-600 text-white px-3 py-1 rounded"
-    >
-      {{
-        modo === "agregar"
-          ? "Agregar"
-          : modo === "editar"
-          ? "Editar"
-          : "Eliminar"
-      }}
-    </button>
-  </div>
+  <button type="submit" class="mt-2 bg-green-600 text-white px-3 py-1 rounded">
+    {{
+      modo === "agregar" ? "Agregar" : modo === "editar" ? "Editar" : "Eliminar"
+    }}
+  </button>
 </form>
 
-<h3 class="mt-6">Listado de Paramédicos</h3>
+<h3 class="mt-6">Listado de Conductores</h3>
 <div class="overflow-auto max-h-56 border bg-secondary rounded-md">
   <table class="w-full text-left">
     <thead>
       <tr>
         <th>Nombre</th>
         <th>Apellido</th>
+        <th>Documento</th>
         <th>N° Licencia</th>
-        <th>Teléfono</th>
-        <th>N° Curso</th>
+        <th>N° Fast Driver</th>
       </tr>
     </thead>
     <tbody>
       <tr
         class="cursor-pointer hover:bg-blue-300"
-        *ngFor="let p of paramedics"
-        (click)="seleccionarParamedico(p)"
+        *ngFor="let d of drivers"
+        (click)="seleccionarDriver(d)"
       >
-        <td>{{ p.nombre }}</td>
-        <td>{{ p.apellido }}</td>
-        <td>{{ p.noLicencia }}</td>
-        <td>{{ p.telefono }}</td>
-        <td>{{ p.noCurso }}</td>
+        <td>{{ d.name }}</td>
+        <td>{{ d.last_name }}</td>
+        <td>{{ d.document }}</td>
+        <td>{{ d.no_licencia }}</td>
+        <td>{{ d.no_fast_driver }}</td>
       </tr>
     </tbody>
   </table>

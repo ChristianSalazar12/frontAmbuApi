@@ -1,28 +1,33 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Driver } from '../../models/driver.model';
 
 @Injectable({
   providedIn: 'root',
 })
-export class driverService {
-  private datos = [
-    {
-      nombre: 'Luis',
-      apellido: 'García',
-      noAuxiliar: 'PM001',
-      contacto: '3101234567',
-      noEspecializacion: 'E123',
-    },
-    {
-      nombre: 'Luis',
-      apellido: 'García',
-      noAuxiliar: 'PM002',
-      contacto: '3101234567',
-      noEspecializacion: 'E123',
-    },
-  ];
+export class DriverService {
+  private baseUrl = 'http://localhost:3005/api/admin/driver'; // Ajusta esta URL a tu backend
 
-  obtenerAmbulancias(): Observable<any[]> {
-    return of(this.datos);
+  constructor(private http: HttpClient) {}
+
+  getDrivers(): Observable<Driver[]> {
+    return this.http.get<Driver[]>(this.baseUrl);
+  }
+
+  getDriverById(id: number): Observable<Driver> {
+    return this.http.get<Driver>(`${this.baseUrl}/${id}`);
+  }
+
+  addDriver(driver: Driver): Observable<Driver> {
+    return this.http.post<Driver>(`${this.baseUrl}/add`, driver);
+  }
+
+  updateDriver(driver: Driver): Observable<Driver> {
+    return this.http.put<Driver>(`${this.baseUrl}/${driver.id}`, driver);
+  }
+
+  deleteDriver(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }
 }

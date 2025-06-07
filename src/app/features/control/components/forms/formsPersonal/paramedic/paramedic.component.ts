@@ -16,12 +16,15 @@ export class ParamedicComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private servicio: ParamedicService) {
     this.formulario = this.fb.group({
-      nombre: [''],
-      apellido: [''],
-      noMedico: [''],
-      contacto: [''],
-      noEspecializacion: [''],
-      categoria: [''],
+      id: [null], // nuevo campo para almacenar el ID del backend
+      name: [''],
+      last_name: [''],
+      document: [''],
+      tipo_medic: [''],
+      no_ci_medic: [''],
+      id_capacitation: [''],
+      password: ['123456'],
+      role: ['USER'],
     });
   }
 
@@ -30,16 +33,9 @@ export class ParamedicComponent implements OnInit {
   }
 
   cargarDatos(): void {
-    this.servicio.obtenerAmbulancias().subscribe((data) => {
+    this.servicio.getParamedics().subscribe((data) => {
       this.paramedics = data;
     });
-  }
-
-  agregar(): void {
-    const nuevoParamedic = this.formulario.value;
-    this.paramedics.push(nuevoParamedic);
-    this.formulario.reset();
-    console.log(this.paramedics);
   }
 
   ejecutarAccion() {
@@ -47,36 +43,63 @@ export class ParamedicComponent implements OnInit {
 
     switch (this.modo) {
       case 'agregar':
-        this.paramedics.push({ ...datos });
+        this.servicio.addParamedic(datos).subscribe({
+          next: (nuevo) => {
+            this.paramedics.push(nuevo);
+            this.formulario.reset({ role: 'USER' });
+          },
+          error: (err) => console.error('Error al agregar paramédico', err),
+        });
         break;
 
       case 'editar':
-        const indexEditar = this.paramedics.findIndex(
-          (p) => p.noMedico === datos.noMedico
-        );
-        if (indexEditar !== -1) this.paramedics[indexEditar] = { ...datos };
+        const index = this.paramedics.findIndex((p) => p.id === datos.id);
+        if (index !== -1) {
+          this.servicio.updateParamedic(datos.id, datos).subscribe({
+            next: (actualizado) => {
+              this.paramedics[index] = actualizado;
+              this.formulario.reset({ role: 'USER' });
+              this.modo = 'agregar';
+            },
+            error: (err) => {
+              console.error('Error al editar paramédico', err);
+            },
+          });
+        }
         break;
 
       case 'eliminar':
-        this.paramedics = this.paramedics.filter(
-          (p) => p.noMedico !== datos.noMedico
-        );
+        const eliminarId = datos.id;
+        if (eliminarId) {
+          this.servicio.deleteParamedic(eliminarId).subscribe({
+            next: () => {
+              this.paramedics = this.paramedics.filter(
+                (p) => p.id !== eliminarId
+              );
+              this.formulario.reset({ role: 'USER' });
+              this.modo = 'agregar';
+            },
+            error: (err) => {
+              console.error('Error al eliminar paramédico', err);
+            },
+          });
+        }
         break;
     }
-
-    this.formulario.reset();
   }
 
   seleccionarParamedico(p: any) {
     this.formulario.setValue({
-      nombre: p.nombre,
-      apellido: p.apellido,
-      noMedico: p.noMedico,
-      contacto: p.contacto,
-      noEspecializacion: p.noEspecializacion,
-      categoria: p.categoria,
+      id: p.id,
+      name: p.name,
+      last_name: p.last_name,
+      document: p.document,
+      tipo_medic: p.tipo_medic,
+      no_ci_medic: p.no_ci_medic,
+      id_capacitation: p.id_capacitation,
+      password: p.password,
+      role: p.role || 'USER',
     });
-
     this.modo = 'editar';
   }
 }

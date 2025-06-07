@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { driverService } from '../../../../../../services/personal/driver.service';
+import { DriverService } from '../../../../../../services/personal/driver.service';
+import { Driver } from '../../../../../../models/driver.model';
 
 @Component({
   selector: 'app-driver',
@@ -9,18 +10,18 @@ import { driverService } from '../../../../../../services/personal/driver.servic
   templateUrl: './driver.component.html',
   styleUrl: './driver.component.css',
 })
-export class DriverComponent {
+export class DriverComponent implements OnInit {
   modo: 'agregar' | 'editar' | 'eliminar' = 'agregar';
   formulario: FormGroup;
-  paramedics: any[] = [];
+  drivers: Driver[] = [];
 
-  constructor(private fb: FormBuilder, private servicio: driverService) {
+  constructor(private fb: FormBuilder, private servicio: DriverService) {
     this.formulario = this.fb.group({
-      nombre: [''],
-      apellido: [''],
-      noLicencia: [''],
-      telefono: [''],
-      noCurso: [''],
+      name: [''],
+      last_name: [''],
+      document: [''],
+      no_licencia: [''],
+      no_fast_driver: [''],
     });
   }
 
@@ -29,16 +30,9 @@ export class DriverComponent {
   }
 
   cargarDatos(): void {
-    this.servicio.obtenerAmbulancias().subscribe((data) => {
-      this.paramedics = data;
+    this.servicio.getDrivers().subscribe((data) => {
+      this.drivers = data;
     });
-  }
-
-  agregar(): void {
-    const nuevoParamedic = this.formulario.value;
-    this.paramedics.push(nuevoParamedic);
-    this.formulario.reset();
-    console.log(this.paramedics);
   }
 
   ejecutarAccion() {
@@ -46,33 +40,49 @@ export class DriverComponent {
 
     switch (this.modo) {
       case 'agregar':
-        this.paramedics.push({ ...datos });
+        this.servicio.addDriver(datos).subscribe((nuevo) => {
+          this.drivers.push(nuevo);
+        });
         break;
 
       case 'editar':
-        const indexEditar = this.paramedics.findIndex(
-          (p) => p.noAuxiliar === datos.noAuxiliar
+        const driverToUpdate = this.drivers.find(
+          (d) => d.document === datos.document
         );
-        if (indexEditar !== -1) this.paramedics[indexEditar] = { ...datos };
+        if (driverToUpdate) {
+          const actualizado = { ...driverToUpdate, ...datos };
+          this.servicio.updateDriver(actualizado).subscribe((res) => {
+            const index = this.drivers.findIndex(
+              (d) => d.id === actualizado.id
+            );
+            this.drivers[index] = res;
+          });
+        }
         break;
 
       case 'eliminar':
-        this.paramedics = this.paramedics.filter(
-          (p) => p.noAuxiliar !== datos.noAuxiliar
+        const toDelete = this.drivers.find(
+          (d) => d.document === datos.document
         );
+        if (toDelete && toDelete.id) {
+          this.servicio.deleteDriver(toDelete.id).subscribe(() => {
+            this.drivers = this.drivers.filter((d) => d.id !== toDelete.id);
+          });
+        }
         break;
     }
 
     this.formulario.reset();
+    this.modo = 'agregar';
   }
 
-  seleccionarParamedico(p: any) {
+  seleccionarDriver(d: Driver) {
     this.formulario.setValue({
-      nombre: p.nombre,
-      apellido: p.apellido,
-      noLicencia: p.noLicencia,
-      telefono: p.telefono,
-      noCurso: p.noCurso,
+      name: d.name,
+      last_name: d.last_name,
+      document: d.document,
+      no_licencia: d.no_licencia,
+      no_fast_driver: d.no_fast_driver,
     });
 
     this.modo = 'editar';

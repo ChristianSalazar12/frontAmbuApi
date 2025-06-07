@@ -1,28 +1,30 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
+import { Ambulance } from '../models/ambulances.model';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AmbulanciaService {
-  private datos = [
-    {
-      placa: 'ABC123',
-      conductor: 'Juan Pérez',
-      paramedico: 'Luis Ramos',
-      auxiliar: 'Ana Torres',
-      estado: 'Activo',
-    },
-    {
-      placa: 'XYZ789',
-      conductor: 'Carlos Gómez',
-      paramedico: 'María Díaz',
-      auxiliar: 'Pedro Ruiz',
-      estado: 'Libre',
-    },
-  ];
+  private apiUrl = 'http://localhost:3005/api/admin/ambulance'; // URL de la API
+  constructor(private http: HttpClient) {}
 
-  obtenerAmbulancias(): Observable<any[]> {
-    return of(this.datos);
+  getAmbulances(): Observable<Ambulance[]> {
+    return this.http.get<Ambulance[]>(this.apiUrl);
+  }
+
+  getAmbulanceById(id: number): Observable<Ambulance> {
+    return this.http.get<Ambulance>(`${this.apiUrl}/${id}`);
+  }
+
+  addAmbulance(data: Ambulance): Observable<Ambulance> {
+    return this.http.post<Ambulance>(`${this.apiUrl}/add`, data);
+  }
+  updateAmbulance(id: string, data: Ambulance): Observable<Ambulance> {
+    return this.http.put<Ambulance>(`${this.apiUrl}/${id}`, data);
+  }
+  deleteAmbulance(id: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`);
   }
 }

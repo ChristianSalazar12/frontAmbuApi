@@ -26,24 +26,40 @@
 </div>
 
 <!-- Formulario -->
-<form class="flex" [formGroup]="formulario" (ngSubmit)="ejecutarAccion()">
-  <div>
-    <input formControlName="nombre" placeholder="Nombre" />
-    <input formControlName="apellido" placeholder="Apellido" />
-    <input class="w-32" formControlName="noMedico" placeholder="N° Médico" />
-    <input class="w-28" formControlName="contacto" placeholder="Contacto" />
-    <input
-      formControlName="noEspecializacion"
-      placeholder="N° Especialización"
-    />
-    <input formControlName="categoria" placeholder="Categoría" />
-  </div>
+<form
+  class="flex flex-wrap gap-2"
+  [formGroup]="formulario"
+  (ngSubmit)="ejecutarAccion()"
+>
+  <input class="border rounded" formControlName="name" placeholder="Nombre" />
+  <input
+    class="border rounded"
+    formControlName="last_name"
+    placeholder="Apellido"
+  />
+  <input
+    class="w-32 border rounded"
+    formControlName="no_ci_medic"
+    placeholder="N° Médico"
+  />
+  <input
+    class="w-28 border rounded"
+    formControlName="document"
+    placeholder="Documento"
+  />
+  <input
+    class="w-32 border rounded"
+    formControlName="tipo_medic"
+    placeholder="Tipo Médico"
+  />
+  <input
+    class="border rounded"
+    formControlName="id_capacitation"
+    placeholder="ID Capacitación"
+  />
 
   <div>
-    <button
-      type="submit"
-      class="mt-2 bg-green-600 text-white px-3 py-1 rounded"
-    >
+    <button type="submit" class="bg-green-600 text-white px-3 py-1 rounded">
       {{
         modo === "agregar"
           ? "Agregar"
@@ -63,9 +79,10 @@
         <th>Nombre</th>
         <th>Apellido</th>
         <th>N° Médico</th>
-        <th>Contacto</th>
-        <th>N° Especialización</th>
-        <th>Categoría</th>
+        <th>Documento</th>
+        <th>Tipo Médico</th>
+        <th>ID Capacitación</th>
+        <th>Rol</th>
       </tr>
     </thead>
     <tbody>
@@ -74,12 +91,13 @@
         *ngFor="let p of paramedics"
         (click)="seleccionarParamedico(p)"
       >
-        <td>{{ p.nombre }}</td>
-        <td>{{ p.apellido }}</td>
-        <td>{{ p.noMedico }}</td>
-        <td>{{ p.contacto }}</td>
-        <td>{{ p.noEspecializacion }}</td>
-        <td>{{ p.categoria }}</td>
+        <td>{{ p.name }}</td>
+        <td>{{ p.last_name }}</td>
+        <td>{{ p.no_ci_medic }}</td>
+        <td>{{ p.document }}</td>
+        <td>{{ p.tipo_medic }}</td>
+        <td>{{ p.id_capacitation }}</td>
+        <td>{{ p.role }}</td>
       </tr>
     </tbody>
   </table>

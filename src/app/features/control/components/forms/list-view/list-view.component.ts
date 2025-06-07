@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { AmbulanciaService } from '../../../../../services/ambulance.services';
+import e from 'express';
 
 @Component({
   selector: 'app-list-view',
@@ -16,34 +17,34 @@ export class ListViewComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private servicio: AmbulanciaService) {
     this.formulario = this.fb.group({
+      modelo: [''],
       placa: [''],
-      conductor: [''],
-      paramedico: [''],
-      auxiliar: [''],
-      estado: [''],
+      tipo: [''],
+      ipsId: [null],
     });
   }
+  private ambulanciaService = inject(AmbulanciaService);
 
   ngOnInit(): void {
     this.cargarDatos();
   }
 
   cargarDatos(): void {
-    this.servicio.obtenerAmbulancias().subscribe((data) => {
+    this.servicio.getAmbulances().subscribe((data) => {
       this.ambulancias = data;
     });
   }
 
-  agregar(): void {
-    const nuevaAmbulancia = this.formulario.value;
-    this.ambulancias.push(nuevaAmbulancia);
-    this.formulario.reset();
-  }
   ejecutarAccion() {
     const datos = this.formulario.value;
     switch (this.modo) {
       case 'agregar':
-        this.ambulancias.push({ ...datos });
+        this.servicio.addAmbulance(datos).subscribe({
+          next: (res) => {
+            this.ambulancias.push(res);
+            this.formulario.reset({ estado: 'Activo' });
+          },
+        });
         break;
 
       case 'editar':
@@ -63,11 +64,10 @@ export class ListViewComponent implements OnInit {
   }
   seleccionarAmbulancia(amb: any) {
     this.formulario.setValue({
+      modelo: amb.modelo,
       placa: amb.placa,
-      conductor: amb.conductor,
-      paramedico: amb.paramedico,
-      auxiliar: amb.auxiliar,
-      estado: amb.estado,
+      tipo: amb.tipo,
+      ipsId: amb.ipsId,
     });
   }
 }

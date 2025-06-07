@@ -26,32 +26,42 @@
 </div>
 
 <!-- Formulario -->
-<form class="flex" [formGroup]="formulario" (ngSubmit)="ejecutarAccion()">
-  <div>
-    <input formControlName="nombre" placeholder="Nombre" />
-    <input formControlName="apellido" placeholder="Apellido" />
-    <input class="w-32" formControlName="noAuxiliar" placeholder="N° Médico" />
-    <input class="w-28" formControlName="contacto" placeholder="Contacto" />
-    <input
-      formControlName="noEspecializacion"
-      placeholder="N° Especialización"
-    />
-  </div>
+<form
+  class="flex flex-wrap gap-2"
+  [formGroup]="formulario"
+  (ngSubmit)="ejecutarAccion()"
+>
+  <input
+    formControlName="name"
+    placeholder="Nombre"
+    class="border p-1 rounded"
+  />
+  <input
+    formControlName="last_name"
+    placeholder="Apellido"
+    class="border p-1 rounded"
+  />
+  <input
+    formControlName="document"
+    placeholder="Documento"
+    class="border p-1 rounded w-32"
+  />
+  <input
+    formControlName="no_ci_auxiliar"
+    placeholder="N° Auxiliar"
+    class="border p-1 rounded w-32"
+  />
+  <input
+    formControlName="no_ci_soporte_vital"
+    placeholder="N° Soporte Vital"
+    class="border rounded p-1"
+  />
 
-  <div>
-    <button
-      type="submit"
-      class="mt-2 bg-green-600 text-white px-3 py-1 rounded"
-    >
-      {{
-        modo === "agregar"
-          ? "Agregar"
-          : modo === "editar"
-          ? "Editar"
-          : "Eliminar"
-      }}
-    </button>
-  </div>
+  <button type="submit" class="mt-2 bg-green-600 text-white px-3 py-1 rounded">
+    {{
+      modo === "agregar" ? "Agregar" : modo === "editar" ? "Editar" : "Eliminar"
+    }}
+  </button>
 </form>
 
 <h3 class="mt-6">Listado de Paramédicos</h3>
@@ -61,22 +71,24 @@
       <tr>
         <th>Nombre</th>
         <th>Apellido</th>
+        <th>Documento</th>
         <th>N° Auxiliar</th>
-        <th>Contacto</th>
-        <th>N° Especialización</th>
+        <th>N° Soporte Vital</th>
+        <th>Rol</th>
       </tr>
     </thead>
     <tbody>
       <tr
         class="cursor-pointer hover:bg-blue-300"
-        *ngFor="let p of paramedics"
+        *ngFor="let p of auxiliares"
         (click)="seleccionarParamedico(p)"
       >
-        <td>{{ p.nombre }}</td>
-        <td>{{ p.apellido }}</td>
-        <td>{{ p.noAuxiliar }}</td>
-        <td>{{ p.contacto }}</td>
-        <td>{{ p.noEspecializacion }}</td>
+        <td>{{ p.name }}</td>
+        <td>{{ p.last_name }}</td>
+        <td>{{ p.document }}</td>
+        <td>{{ p.no_ci_auxiliar }}</td>
+        <td>{{ p.no_ci_soporte_vital }}</td>
+        <td>{{ p.role }}</td>
       </tr>
     </tbody>
   </table>
