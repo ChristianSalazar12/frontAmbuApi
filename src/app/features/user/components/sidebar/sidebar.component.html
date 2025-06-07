@@ -1,1 +1,16 @@
-<p>sidebar works!</p>
+<div class="space-y-4">
+  <div
+    *ngFor="let llamada of llamadas"
+    class="border-l-4 p-4 rounded shadow cursor-pointer hover:shadow-lg transition"
+    [ngClass]="getColor(llamada.gravedad)"
+  >
+    <h3 class="font-bold text-lg mb-1">{{ llamada.tipoReporte }}</h3>
+
+    <p><span class="font-semibold">Lugar:</span> {{ llamada.lugar }}</p>
+    <p><span class="font-semibold">Gravedad:</span> {{ llamada.gravedad }}</p>
+    <p>
+      <span class="font-semibold">Tiempo estimado:</span>
+      {{ llamada.tiempoEstimado }}
+    </p>
+  </div>
+</div>
