@@ -6,7 +6,7 @@ import { ServicesComponentComponent } from '../../../control/components/view/ser
 
 @Component({
   selector: 'app-layout-user',
-  imports: [SidebarComponent, HeaderUserComponent, ServicesAmbulanceComponent],
+  imports: [SidebarComponent, HeaderUserComponent, ServicesComponentComponent],
   templateUrl: './layout-user.component.html',
   styleUrl: './layout-user.component.css',
 })
