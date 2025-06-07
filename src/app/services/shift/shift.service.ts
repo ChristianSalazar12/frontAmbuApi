@@ -16,6 +16,10 @@ export class TurnoService {
     return this.http.get<Turno[]>(`${this.baseUrl}/shift`);
   }
 
+  obtenerTurnosActuales(): Observable<Turno[]> {
+    return this.http.get<Turno[]>(`${this.baseUrl}/shift/currents`);
+  }
+
   agregarTurno(turno: Turno): Observable<Turno> {
     return this.http.post<Turno>(`${this.baseUrl}/shift/add`, turno);
   }

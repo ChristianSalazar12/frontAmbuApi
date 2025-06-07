@@ -25,7 +25,7 @@ export class TurnosComponentComponent {
   }
 
   cargarTurnos() {
-    this.turnoService.obtenerTurnos().subscribe((turnos: Turno[]) => {
+    this.turnoService.obtenerTurnosActuales().subscribe((turnos: Turno[]) => {
       const detalles$ = turnos.map((turno) => {
         return forkJoin({
           paramedico: this.turnoService.getParamedicById(turno.paramedicId),
