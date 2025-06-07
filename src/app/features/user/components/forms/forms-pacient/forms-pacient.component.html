@@ -1,1 +1,36 @@
-<p>forms-pacient works!</p>
+<form
+  [formGroup]="formulario"
+  (ngSubmit)="ejecutarAccion()"
+  class="bg-white p-6 rounded-lg grid gap-4 w-full"
+>
+  <div class="flex gap-4">
+    <input
+      formControlName="name"
+      placeholder="Nombre"
+      class="flex-1 border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+    />
+    <input
+      formControlName="last_name"
+      placeholder="Apellido"
+      class="flex-1 border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+    />
+  </div>
+  <div class="flex gap-4">
+    <input
+      formControlName="document"
+      placeholder="Documento"
+      class="flex-1 border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+    />
+    <input
+      formControlName="entidad_salud"
+      placeholder="Entidad de Salud"
+      class="flex-1 border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+    />
+  </div>
+  <button
+    type="submit"
+    class="self-end mt-2 bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white px-6 py-2 rounded shadow font-semibold transition-all"
+  >
+    Confirmar
+  </button>
+</form>

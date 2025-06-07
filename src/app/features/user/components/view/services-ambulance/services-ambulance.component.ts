@@ -8,10 +8,11 @@ import {
 } from '@angular/forms';
 import { AttentionService } from '../../../../../services/servicesAmbu/attention.service';
 import { CommonModule } from '@angular/common';
+import { FormsPacientComponent } from '../../forms/forms-pacient/forms-pacient.component';
 
 @Component({
   selector: 'app-services-ambulance',
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, FormsPacientComponent],
   templateUrl: './services-ambulance.component.html',
   styleUrl: './services-ambulance.component.css',
 })
