@@ -9,10 +9,16 @@ import {
 import { AttentionService } from '../../../../../services/servicesAmbu/attention.service';
 import { CommonModule } from '@angular/common';
 import { FormsPacientComponent } from '../../forms/forms-pacient/forms-pacient.component';
+import { FormsDescriptionComponent } from '../../forms/forms-description/forms-description.component';
 
 @Component({
   selector: 'app-services-ambulance',
-  imports: [ReactiveFormsModule, CommonModule, FormsPacientComponent],
+  imports: [
+    ReactiveFormsModule,
+    CommonModule,
+    FormsPacientComponent,
+    FormsDescriptionComponent,
+  ],
   templateUrl: './services-ambulance.component.html',
   styleUrl: './services-ambulance.component.css',
 })
