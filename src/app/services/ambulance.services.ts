@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { Ambulance } from '../models/ambulances.model';
 import { HttpClient } from '@angular/common/http';
 
@@ -19,7 +19,12 @@ export class AmbulanciaService {
   }
 
   addAmbulance(data: Ambulance): Observable<Ambulance> {
-    return this.http.post<Ambulance>(`${this.apiUrl}/add`, data);
+    return this.http.post<Ambulance>(`${this.apiUrl}/add`, data).pipe(
+      catchError((error) => {
+        console.error('Error al agregar ambulancia:', error); // ES: Muestra en consola
+        return throwError(() => error); // EN: Propagate the error to be handled in the component
+      })
+    );
   }
   updateAmbulance(id: string, data: Ambulance): Observable<Ambulance> {
     return this.http.put<Ambulance>(`${this.apiUrl}/${id}`, data);

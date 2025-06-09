@@ -1,6 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormGroup,
+  FormBuilder,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { AmbulanciaService } from '../../../../../services/ambulance.services';
 import e from 'express';
 
@@ -17,10 +22,10 @@ export class ListViewComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private servicio: AmbulanciaService) {
     this.formulario = this.fb.group({
-      modelo: [''],
-      placa: [''],
-      tipo: [''],
-      ipsId: [null],
+      modelo: ['', Validators.required],
+      placa: ['', Validators.required],
+      tipo: ['', Validators.required],
+      ipsId: [null, Validators.required],
     });
   }
   private ambulanciaService = inject(AmbulanciaService);

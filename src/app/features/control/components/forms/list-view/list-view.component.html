@@ -1,6 +1,16 @@
 <h2 class="mb-4 text-2xl font-bold text-blue-700 flex items-center gap-2">
-  <svg class="w-7 h-7 text-blue-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-    <path stroke-linecap="round" stroke-linejoin="round" d="M3 13l2-2m0 0l7-7 7 7M5 11v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0h6"/>
+  <svg
+    class="w-7 h-7 text-blue-500"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    viewBox="0 0 24 24"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      d="M3 13l2-2m0 0l7-7 7 7M5 11v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0h6"
+    />
   </svg>
   Formulario de Ambulancias
 </h2>
@@ -12,8 +22,14 @@
     [class.opacity-80]="modo === 'agregar'"
     (click)="modo = 'agregar'"
   >
-    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/>
+    <svg
+      class="w-4 h-4"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      viewBox="0 0 24 24"
+    >
+      <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
     </svg>
     Agregar
   </button>
@@ -23,8 +39,18 @@
     [class.opacity-80]="modo === 'editar'"
     (click)="modo = 'editar'"
   >
-    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536M9 13l6-6m2 2l-6 6m2 2l-6 6"/>
+    <svg
+      class="w-4 h-4"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      viewBox="0 0 24 24"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M15.232 5.232l3.536 3.536M9 13l6-6m2 2l-6 6m2 2l-6 6"
+      />
     </svg>
     Editar
   </button>
@@ -34,29 +60,55 @@
     [class.opacity-80]="modo === 'eliminar'"
     (click)="modo = 'eliminar'"
   >
-    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+    <svg
+      class="w-4 h-4"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      viewBox="0 0 24 24"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M6 18L18 6M6 6l12 12"
+      />
     </svg>
     Eliminar
   </button>
 </div>
 
-<form [formGroup]="formulario" (ngSubmit)="ejecutarAccion()" class="bg-white p-6 rounded-lg shadow-md flex flex-col gap-4 max-w-xl mx-auto">
+<form
+  [formGroup]="formulario"
+  (ngSubmit)="ejecutarAccion()"
+  class="bg-white p-6 rounded-lg shadow-md flex flex-col gap-4 max-w-xl mx-auto"
+>
   <div class="flex gap-4">
-    <input formControlName="modelo" placeholder="Modelo" class="flex-1 border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" />
-    <input formControlName="placa" placeholder="Placa" class="flex-1 border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+    <input
+      formControlName="modelo"
+      placeholder="Modelo"
+      class="flex-1 border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+      required="modelo"
+    />
+    <input
+      formControlName="placa"
+      placeholder="Placa"
+      class="flex-1 border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+    />
   </div>
   <div class="flex gap-4">
-    <input formControlName="tipo" placeholder="Tipo de Ambulancia" class="flex-1 border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" />
-    <input formControlName="ipsId" placeholder="ID IPS" type="number" class="flex-1 border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+    <input
+      formControlName="tipo"
+      placeholder="Tipo de Ambulancia"
+      class="flex-1 border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+    />
+    <input
+      formControlName="ipsId"
+      placeholder="ID IPS"
+      type="number"
+      class="flex-1 border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+    />
   </div>
-  <div class="flex gap-4 items-center">
-    <label class="font-semibold text-gray-700">Estado:</label>
-    <select formControlName="estado" class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
-      <option value="Activo">Activo</option>
-      <option value="Libre">Libre</option>
-    </select>
-  </div>
+
   <button
     type="submit"
     class="self-end mt-2 bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white px-6 py-2 rounded shadow font-semibold transition-all"
@@ -70,8 +122,18 @@
 <hr class="my-8 border-blue-200" />
 
 <h3 class="my-4 text-xl font-semibold text-blue-600 flex items-center gap-2">
-  <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-    <path stroke-linecap="round" stroke-linejoin="round" d="M3 7h18M3 12h18M3 17h18"/>
+  <svg
+    class="w-6 h-6 text-blue-400"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    viewBox="0 0 24 24"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      d="M3 7h18M3 12h18M3 17h18"
+    />
   </svg>
   Listado de Ambulancias
 </h3>

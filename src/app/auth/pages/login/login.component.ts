@@ -43,4 +43,20 @@ export class LoginComponent {
       });
     }
   }
+  loginWithGoogle(): void {
+    const redirectUri = 'http://localhost:4200/login/callback'; // donde Keycloak redirige al terminar
+    const keycloakUrl = 'http://localhost:8080';
+    const realm = 'ambu-realm';
+    const clientId = 'ambu-backend';
+
+    const url = `${keycloakUrl}/realms/${realm}/protocol/openid-connect/auth
+      ?client_id=${clientId}
+      &redirect_uri=${encodeURIComponent(redirectUri)}
+      &response_type=code
+      &scope=openid
+      &kc_idp_hint=google
+      &prompt=select_account`.replace(/\s+/g, '');
+
+    window.location.href = url;
+  }
 }

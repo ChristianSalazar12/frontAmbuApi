@@ -15,6 +15,8 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('access_token');
     this.router.navigate(['/login']); // Redirige al login
+    const redirectUri = encodeURIComponent('http://localhost:4200/login');
+    window.location.href = `http://localhost:8080/realms/ambu-realm/protocol/openid-connect/logout?redirect_uri=${redirectUri}`;
   }
 
   isLoggedIn(): boolean {
