@@ -24,6 +24,7 @@ export const routes: Routes = [
   {
     path: 'services',
     component: ServicesAmbulanceComponent,
+    canActivate: [authGuard],
   },
   {
     path: 'service',
