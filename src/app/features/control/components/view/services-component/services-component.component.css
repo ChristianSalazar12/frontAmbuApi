@@ -1,0 +1,18 @@
+.informe-container {
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  background-color: #f9f9f9;
+  max-width: 600px;
+  margin: auto;
+}
+
+h2,
+h3 {
+  color: #007bff;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  margin: 0.3rem 0;
+}

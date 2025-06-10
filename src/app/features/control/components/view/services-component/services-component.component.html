@@ -1,1 +1,35 @@
-<p>services-component works!</p>
+<div class="p-4">
+  <h2 class="text-2xl font-bold mb-4 text-blue-700">📋 Lista de Atenciones</h2>
+
+  <div *ngIf="isLoading" class="text-gray-500">Cargando atenciones...</div>
+
+  <div *ngIf="!isLoading && attentions.length === 0" class="text-gray-500">
+    No se encontraron atenciones.
+  </div>
+
+  <div *ngIf="!isLoading && attentions.length > 0" class="overflow-x-auto">
+    <table class="min-w-full bg-white border rounded-lg shadow-md">
+      <thead class="bg-blue-600 text-white">
+        <tr>
+          <th class="py-2 px-4 text-left">Informe</th>
+          <th class="py-2 px-4 text-left">Estado</th>
+          <th class="py-2 px-4 text-left">Llegada</th>
+          <th class="py-2 px-4 text-left">Finalización</th>
+          <th class="py-2 px-4 text-left">Lugar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let att of attentions"
+          class="border-b hover:bg-gray-50 transition duration-150"
+        >
+          <td class="py-2 px-4">{{ att.nro_informe }}</td>
+          <td class="py-2 px-4">{{ att.status }}</td>
+          <td class="py-2 px-4">{{ att.time_arrived | date : "short" }}</td>
+          <td class="py-2 px-4">{{ att.time_finish | date : "short" }}</td>
+          <td class="py-2 px-4">{{ att.place_accident }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
