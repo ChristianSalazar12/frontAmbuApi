@@ -1,59 +1,99 @@
-# AmbuFront
+# 🚑 AmbuFront
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.9.
+AmbuFront es una aplicación web desarrollada con Angular que facilita la gestión de servicios de ambulancia. Este proyecto utiliza las mejores prácticas de desarrollo y herramientas modernas para garantizar un rendimiento óptimo y una experiencia de usuario excepcional.
 
-## Development server
+## 🌟 Características
 
-To start a local development server, run:
+- Gestión de ambulancias, paramédicos y pacientes.
+- Interfaz intuitiva y responsiva.
+- Autenticación segura con Google.
+- Componentes modulares y reutilizables.
+
+## 🚀 Comenzando
+
+### 📦 Instalación
+
+Para instalar las dependencias del proyecto, ejecuta:
+
+```bash
+npm install
+```
+
+### 🌐 Servidor de desarrollo
+
+Para iniciar el servidor de desarrollo, ejecuta:
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Luego, abre tu navegador y navega a `http://localhost:4200/`. La aplicación se recargará automáticamente al modificar los archivos fuente.
 
-## Code scaffolding
+## 🛠️ Herramientas de desarrollo
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### 🧩 Generación de componentes
+
+Angular CLI incluye herramientas de scaffolding. Para generar un nuevo componente, ejecuta:
 
 ```bash
-ng generate component component-name
+ng generate component nombre-del-componente
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Para ver todos los esquemas disponibles:
 
 ```bash
 ng generate --help
 ```
 
-## Building
+### 🏗️ Construcción
 
-To build the project run:
+Para compilar el proyecto, ejecuta:
 
 ```bash
 ng build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Los artefactos de construcción se almacenarán en el directorio `dist/`. La compilación de producción optimiza la aplicación para rendimiento y velocidad.
 
-## Running unit tests
+## 🧪 Pruebas
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+### ✅ Pruebas unitarias
+
+Ejecuta las pruebas unitarias con Karma:
 
 ```bash
 ng test
 ```
 
-## Running end-to-end tests
+### 🔍 Pruebas end-to-end
 
-For end-to-end (e2e) testing, run:
+Para pruebas end-to-end, ejecuta:
 
 ```bash
 ng e2e
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+> Nota: Angular CLI no incluye un framework de pruebas e2e por defecto. Puedes elegir el que mejor se adapte a tus necesidades.
 
-## Additional Resources
+## 🤝 Contribuciones
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+¡Las contribuciones son bienvenidas! Si deseas colaborar, sigue estos pasos:
+
+1. Haz un fork del repositorio.
+2. Crea una rama con tu funcionalidad (`git checkout -b feature/nueva-funcionalidad`).
+3. Realiza tus cambios y haz commit (`git commit -m 'Agrega nueva funcionalidad'`).
+4. Envía un pull request.
+
+## 📄 Licencia
+
+Este proyecto está bajo la licencia MIT. Consulta el archivo `LICENSE` para más detalles.
+
+## 📚 Recursos adicionales
+
+- [Documentación oficial de Angular](https://angular.io/docs)
+- [Referencia de comandos de Angular CLI](https://angular.dev/tools/cli)
+- [Guía de estilo Angular](https://angular.io/guide/styleguide)
+
+---
+
+Hecho con ❤️ por el equipo de desarrollo.
